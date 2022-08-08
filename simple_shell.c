@@ -4,8 +4,28 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <limits.h>
+
+/**
+ * getpath - function gets the absolute path
+ *@buf:buffer for the function
+ *@size:size of information
+ *Return(0)
+ */
+
+char *getpath()
+{
+	char cwd[PATH_MAX];
+	char *path = getcwd(cwd, sizeof(cwd));
+
+	if (path == NULL)
+		perror("Cannot get the path");
+	chmod(path, S_IWOTH);	
+	return (path);
+}
 
 /**
  * main - Implementation of a basic shell. it displays a prompt,
@@ -21,21 +41,25 @@ int main()
 	pid_t pid;
 	char *line;
 	char *args[3] = {"NULL", "NULL", "NULL"};
-	size_t len = 1;
+	int len = 1024;
+	size_t len2 = 0;
 	int tokens;
 	char *token;
 	char token_list[20][20];
-
+	
 	line = malloc(len * sizeof(char *)) ;
-
+	
+	if (line == NULL)
+		exit(0);
 	do{
 		printf("$ ");
 
-		if (getline(&line, &len, stdin) == -1)
+		if (getline(&line, &len2, stdin) == -1)
 		{
 			printf("Failed to get line from stdin\n");
 		}
 
+		tokens = 0;
 		token = strtok(line, " ");
 		while (token != NULL)
 		{
@@ -43,8 +67,9 @@ int main()
 			tokens++;
 			token = strtok(NULL, " ");
 		}
-		args[1] = token_list[0];
-
+		args[0] = getpath();
+		printf("Path: %s\n", args[0]);
+		args[1] = token_list[0];	
 		pid = fork();
 
 		if (pid == -1)
@@ -53,13 +78,13 @@ int main()
 		}
 		if (pid == 0)
 		{
-			if (execve(args[0], args, NULL) == -1)
+			if (execvp(args[0], args) == -1)
 			{
-				perror("$ Did not execute\n");
+				perror("$ Did not execute ");
 			}
 		}
-		wait(&status);
-	} while (line == 0);
+	
+	} while (wait(&status));
 
 	return (0);
 }
