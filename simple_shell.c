@@ -45,7 +45,7 @@ int main()
 	size_t len2 = 0;
 	int tokens;
 	char *token;
-	char token_list[20][20];
+	char *token_list[2];
 	
 	line = malloc(len * sizeof(char *)) ;
 	
@@ -67,9 +67,10 @@ int main()
 			tokens++;
 			token = strtok(NULL, " ");
 		}
-		args[0] = getpath();
-		printf("Path: %s\n", args[0]);
-		args[1] = token_list[0];	
+		args[0] = "/simple/ls";
+		/*printf("Path: %s\n", args[0]);*/
+		args[1] = token_list[0];
+
 		pid = fork();
 
 		if (pid == -1)
@@ -78,7 +79,7 @@ int main()
 		}
 		if (pid == 0)
 		{
-			if (execvp(args[0], args) == -1)
+			if (execv(args[0], args) == -1)
 			{
 				perror("$ Did not execute ");
 			}
