@@ -2,7 +2,7 @@
 
 /**
  * getTokens - function is used to tokenize strings
- * @line:buffer to be tokenized
+ * @buffer:buffer to be tokenized
  * Return:0
  */
 
