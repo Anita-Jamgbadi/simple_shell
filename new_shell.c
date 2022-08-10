@@ -12,6 +12,8 @@ char **getTokens(char *buffer)
 	int tokens, i;
 
 	line_cpy = malloc(sizeof(char) * strlen(buffer));
+	if (line_cpy == NULL)
+		perror("./hsh");
 	strcpy(line_cpy, buffer);
 	tokens = i = 0;
 	token = strtok(buffer, " \n");
@@ -23,19 +25,24 @@ char **getTokens(char *buffer)
 	tokens++;
 
 	argsV = malloc(sizeof(char *) * tokens);
-
+	if (argsV == NULL)
+		perror("./hsh");
 	token = strtok(line_cpy, " \n");
 	while (token != NULL)
 	{
 		if (i == 0)
 		{
 			argsV[i] = malloc((sizeof(char)) * (strlen(token) + strlen(path)));
+			if (argsV[i] == NULL)
+				perror("./hsh");
 			strcat(argsV[i], path);
 			strcat(argsV[i], token);
 		}
 		else
 		{
 			argsV[i] = malloc(sizeof(char) * strlen(token));
+			if(argsV[i] == NULL)
+				perror("./hsh");
 			strcpy(argsV[i], token);
 		}
 		i++;
@@ -66,7 +73,6 @@ int main(void)
 
 		if (line_count == -1)
 		{
-			perror("Goodbye '_' ...");
 			return (0);
 		}
 
@@ -75,7 +81,7 @@ int main(void)
 
 		if (pid == -1)
 		{
-			perror("unable to make a baby '^': ");
+			perror("./hsh");
 		}
 		if (pid == 0)
 		{	
