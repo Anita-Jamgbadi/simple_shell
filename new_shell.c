@@ -15,9 +15,7 @@
  * Return: 0 on success
  */
 
-char **environ;
-
-int main()
+int main(void)
 {
 	char *line, *line_cpy, *token, *path = "/bin/";
 	size_t line_count_1;
@@ -26,8 +24,8 @@ int main()
 	char **argsV;
 	pid_t pid;
 
-	
-	do{
+
+	do {
 
 		/** Display Prompt **/
 		printf("$ ");
@@ -92,7 +90,7 @@ int main()
 		}
 		if (pid == 0)
 		{
-			if(execve(argsV[0], &argsV[0], environ) == -1)
+			if (execve(argsV[0], argsV, environ) == -1)
 			{
 				perror("Did not execute: ");
 			}
@@ -103,6 +101,6 @@ int main()
 		free(argsV);
 		free(line_cpy);
 
-	} while(wait(&pid));
+	} while (wait(&pid));
 	return (0);
 }
