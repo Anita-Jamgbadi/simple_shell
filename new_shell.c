@@ -8,23 +8,23 @@
 
 char **getTokens(char *buffer)
 {
-	char *line_cpy, *token, **argsV, *path = "/bin/";
+	char *line_cpy, *token, **argsV, *path = "";
 	int tokens, i;
 
 	line_cpy = malloc(sizeof(char) * strlen(buffer));
 	strcpy(line_cpy, buffer);
 	tokens = i = 0;
-	token = strtok(buffer, " ");
+	token = strtok(buffer, " \n");
 	while (token != NULL)
 	{
 		tokens++;
-		token = strtok(NULL, " ");
+		token = strtok(NULL, " \n");
 	}
 	tokens++;
 
 	argsV = malloc(sizeof(char *) * tokens);
 
-	token = strtok(line_cpy, " ");
+	token = strtok(line_cpy, " \n");
 	while (token != NULL)
 	{
 		if (i == 0)
@@ -39,7 +39,7 @@ char **getTokens(char *buffer)
 			strcpy(argsV[i], token);
 		}
 		i++;
-		token = strtok(NULL, " ");
+		token = strtok(NULL, " \n");
 	}
 	argsV[i] = NULL;
 	return (argsV);
@@ -78,10 +78,10 @@ int main(void)
 			perror("unable to make a baby '^': ");
 		}
 		if (pid == 0)
-		{
-			if (execve(argsV[0], argsV, NULL) == -1)
+		{	
+			if (execve(argsV[0], argsV, environ) == -1)
 			{
-				perror("Did not execute: ");
+				perror("./hsh");
 			}
 			return (0);
 		}

@@ -14,4 +14,6 @@
 
 char **getTokens(char *buffer);
 
+
+extern char **environ;
 #endif /* SIMPLE_SHELL_H*/
