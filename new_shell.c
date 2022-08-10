@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <wait.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-#include <errno.h>
-#include <stddef.h>
-#include <sys/stat.h>
-#include <limits.h>
+#include "simple_shell.h"
 
 /**
  * getTokens - function is used to tokenize strings
@@ -67,16 +58,11 @@ int main(void)
 	ssize_t line_count;
 	pid_t pid;
 
-
 	do {
-
-		/** Display Prompt **/
 		printf("$ ");
 
 		line_count_1 = 0;
 		line_count = getline(&line, &line_count_1, stdin);
-
-		/* check for EOF */
 
 		if (line_count == -1)
 		{
