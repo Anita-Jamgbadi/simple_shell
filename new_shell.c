@@ -87,7 +87,7 @@ int main(void)
 		{	
 			if (execve(argsV[0], argsV, environ) == -1)
 			{
-				perror("./hsh");
+				perror("./shell");
 			}
 			return (0);
 		}
