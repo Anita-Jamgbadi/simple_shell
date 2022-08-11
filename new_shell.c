@@ -53,6 +53,11 @@ char **getTokens(char *buffer)
 }
 
 /**
+ * getenvy - gets the environ
+ * Return: environment value (string)
+ */
+
+/**
  * main - executes a given command
  *
  * Return: 0 on success
@@ -77,6 +82,7 @@ int main(void)
 		}
 
 		argsV = getTokens(line);
+
 		pid = fork();
 
 		if (pid == -1)
@@ -87,7 +93,7 @@ int main(void)
 		{	
 			if (execve(argsV[0], argsV, environ) == -1)
 			{
-				perror("./shell");
+				perror("./hsh");
 			}
 			return (0);
 		}
