@@ -58,41 +58,41 @@ char **getTokens(char *buffer)
 
 int main(void)
 {
-	char *line, **argsV;
+	char *line, **argsV, *builtin_check;
 	size_t line_count_1;
 	ssize_t line_count;
-	pid_t pid;
+	int a, status;
 
-	do {
+
+	builtins_t builts[] = {
+		{"exit", _shellexit},
+		{"env", _env}
+	};
+
+	while (line_count != -1)
+	{
 		printf("$ ");
-
 		line_count_1 = 0;
 		line_count = getline(&line, &line_count_1, stdin);
 
 		if (line_count == -1)
 		{
-			return (0);
+			_exit(0);
 		}
 
 		argsV = getTokens(line);
-
-		pid = fork();
-
-		if (pid == -1)
+		a = 0;
+		while (a < 2)
 		{
-			perror("./hsh");
+			builtin_check = strtok(line, "\n");
+			if (_strcmp(builtin_check, builts[a].funcname) == 0)
+				return (builts[a].f());
+			a++;
 		}
-		if (pid == 0)
-		{
-			if (execve(argsV[0], argsV, environ) == -1)
-			{
-				perror("./hsh");
-			}
-			return (0);
-		}
-
+		execute(argsV);
 		free(line);
 		free(argsV);
-	} while (wait(&pid));
+		wait(&status);
+	}
 	return (0);
 }
