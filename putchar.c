@@ -2,7 +2,7 @@
 
 /**
  * _putchar - writes chr to stdout
- *
+ * @c: char
  * Return: 1
  *
  */

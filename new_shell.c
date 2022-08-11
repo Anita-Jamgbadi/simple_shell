@@ -51,11 +51,6 @@ char **getTokens(char *buffer)
 }
 
 /**
- * getenvy - gets the environ
- * Return: environment value (string)
- */
-
-/**
  * main - executes a given command
  *
  * Return: 0 on success
