@@ -11,10 +11,10 @@ char **getTokens(char *buffer)
 	char *line_cpy, *token, **argsV, *path = "";
 	int tokens, i;
 
-	line_cpy = malloc(sizeof(char) * strlen(buffer));
+	line_cpy = malloc(sizeof(char) * _strlen(buffer));
 	if (line_cpy == NULL)
 		perror("./hsh");
-	strcpy(line_cpy, buffer);
+	_strcpy(line_cpy, buffer);
 	tokens = i = 0;
 	token = strtok(buffer, " \n");
 	while (token != NULL)
@@ -32,18 +32,18 @@ char **getTokens(char *buffer)
 	{
 		if (i == 0)
 		{
-			argsV[i] = malloc((sizeof(char)) * (strlen(token) + strlen(path)));
+			argsV[i] = malloc((sizeof(char)) * (_strlen(token) + _strlen(path)));
 			if (argsV[i] == NULL)
 				perror("./hsh");
-			strcat(argsV[i], path);
-			strcat(argsV[i], token);
+			_strcat(argsV[i], path);
+			_strcat(argsV[i], token);
 		}
 		else
 		{
-			argsV[i] = malloc(sizeof(char) * strlen(token));
+			argsV[i] = malloc(sizeof(char) * _strlen(token));
 			if(argsV[i] == NULL)
 				perror("./hsh");
-			strcpy(argsV[i], token);
+			_strcpy(argsV[i], token);
 		}
 		i++;
 		token = strtok(NULL, " \n");

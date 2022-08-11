@@ -13,7 +13,10 @@
 #include <limits.h>
 
 char **getTokens(char *buffer);
-
+int _putchar(char c);
+char *_strcpy(char *dest, char *src);
+int _strlen(char *s);
+char *_strcat(char *dest, char *src);
 
 extern char **environ;
 #endif /* SIMPLE_SHELL_H*/
