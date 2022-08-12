@@ -12,29 +12,26 @@
 #include <sys/stat.h>
 #include <limits.h>
 
-/**
- * struct builtins - struct that points name to a function
- * @funcname:function name
- * @f:function to run
+
+int _printf(char *s);
+int get_arr_len(char **cmd);
+void print_env(char **env);
+int readline(char **buf, size_t *buflen);
+void parser(char *buf, char **cmd);
+char *_getenv(char *target, char **env);
+char *build_path(char *cmd, char *path);
+int add_path(char **cmd, char **env);
+int execute_cmd(char **cmd, char **argv, char **env);
+int main(int argc, char **argv, char **env);
+
+/*
+ * string manipulation files
  */
-
-typedef struct builtins
-{
-	char *funcname;
-	int (*f)();
-} builtins_t;
-
-char **getTokens(char *buffer);
-int _putchar(char c);
-char *_strcpy(char *dest, char *src);
-int _strlen(char *s);
 char *_strcat(char *dest, char *src);
+int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
+int _strcmp(char *s1, char *s2);
 char *_strsub(char *str, char *search);
-int _strcmp(char *first, char *second);
-int _envGet(char *s);
-int _env(void);
-int _shellexit(void);
-int execute(char **argsV);
 
 extern char **environ;
 #endif /* SIMPLE_SHELL_H*/

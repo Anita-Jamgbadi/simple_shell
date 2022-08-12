@@ -46,6 +46,5 @@ char *_strsub(char *str, char *search)
 		a++;
 	}
 	s[c] = '\0';
-	free(cpy);
 	return (s);
 }
