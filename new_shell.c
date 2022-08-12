@@ -61,7 +61,7 @@ int main(void)
 	char *line, **argsV, *builtin_check;
 	size_t line_count_1;
 	ssize_t line_count;
-	int a, status;
+	int a = 0, status;
 
 
 	builtins_t builts[] = {
@@ -69,7 +69,7 @@ int main(void)
 		{"env", _env}
 	};
 
-	while (line_count != -1)
+	while (1)
 	{
 		printf("$ ");
 		line_count_1 = 0;
@@ -81,12 +81,15 @@ int main(void)
 		}
 
 		argsV = getTokens(line);
-		a = 0;
 		while (a < 2)
 		{
 			builtin_check = strtok(line, "\n");
 			if (_strcmp(builtin_check, builts[a].funcname) == 0)
-				return (builts[a].f());
+			{
+				if (_strcmp(builtin_check, "exit") == 0)
+					return (builts[a].f());
+				builts[a].f();
+			}
 			a++;
 		}
 		execute(argsV);
