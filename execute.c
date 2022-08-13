@@ -24,9 +24,9 @@ int execute_cmd(char **cmd, char **argv, char **env)
 			_printf(": No such file or directory\n");
 			return (0);
 		}
+		else
+			pid = fork();
 	}
-
-	pid = fork();
 
 	if (pid == 0)
 	{
