@@ -20,7 +20,8 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 
 	do {
-		_printf("$ ");
+		if (isatty(STDIN_FILENO))
+			_printf("$ ");
 		readline(&buf, &buflen);
 
 		if (_strcmp(buf, "exit\n") == 0)
