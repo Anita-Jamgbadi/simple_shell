@@ -26,8 +26,7 @@ int execute_cmd(char **cmd, char **argv, char **env)
 		}
 	}
 
-	if (n == 0)
-		pid = fork();
+	pid = fork();
 
 	if (pid == 0)
 	{
