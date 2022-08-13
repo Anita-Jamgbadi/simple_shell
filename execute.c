@@ -34,7 +34,7 @@ int execute_cmd(char **cmd, char **argv, char **env)
 		_printf(argv[0]);
 		_printf(": No such file or directory\n");
 		free(cmd[0]);
-		exit(0);
+		_exit(0);
 	}
 	else
 	{

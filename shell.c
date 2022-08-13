@@ -27,7 +27,7 @@ int main(int argc, char **argv, char **env)
 		if (_strcmp(buf, "exit\n") == 0)
 		{
 			free(buf);
-			return (0);
+			exit(0);
 		}
 		if (buf[0] == '\0' || _strcmp(buf, "\n") == 0)
 			continue;
